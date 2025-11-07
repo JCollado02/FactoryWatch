@@ -15,7 +15,10 @@ public class SensorController {
 
     @PostMapping("/sensor-data") // when we get a POST request at this url, do the following:
     public ResponseEntity<String> recieveSensorData(@RequestBody SensorData data) {
-        System.out.println("Got temp: " + data.getTemperature());
+        System.out.println("Temperature: " + data.getTemperature() + "°C");
+        System.out.println("Humidity: " + data.getHumidity() + "%");
+        System.out.println("Device ID: " + data.getDeviceId());
+
         return ResponseEntity.ok("Success");
     }
 
