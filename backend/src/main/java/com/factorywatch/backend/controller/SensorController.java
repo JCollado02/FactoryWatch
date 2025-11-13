@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +30,8 @@ public class SensorController {
         return ResponseEntity.ok("FactoryWatch API is running");
     }
 
+    // ------------------------------------------------------------------------------------------------------//
+    // POST requests
     // POST new sensor data
     @PostMapping("/sensor-data") // when we get a POST request at this url, do the following:
     public ResponseEntity<String> recieveSensorData(@RequestBody SensorData data) {
@@ -38,6 +41,9 @@ public class SensorController {
 
         return ResponseEntity.ok("Success");
     }
+
+    // -------------------------------------------------------------------------------------------------------//
+    // GET requests
 
     // GET all readings
     @GetMapping("/sensor-data") // get data
@@ -59,4 +65,25 @@ public class SensorController {
         }
     }
 
+    // query endpoint to filter by devices
+    @GetMapping("/sensor-data/device/{deviceId}") // get data
+    public List<SensorReading> getDeviceById(@PathVariable String deviceId) {
+        return repository.findByDeviceId(deviceId);
+    }
+
+    // ------------------------------------------------------------------------------------------------------------//
+
+    // DELETE requests
+
+    @DeleteMapping("/sensor-data/{id}")
+    public ResponseEntity<?> deleteReading(@PathVariable Long id) {
+        // if found delete + return 204, else 404
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
