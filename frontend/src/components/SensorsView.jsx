@@ -1,5 +1,7 @@
-import { Cpu, Wifi, Battery, Search, RefreshCw, Settings, CheckCircle2, X, AlertTriangle } from 'lucide-react';
+import { Cpu, Wifi, Battery, Search, RefreshCw, Settings, CheckCircle2, X, AlertTriangle } from 'lucide-react';  // icons
 
+
+// TODO: Seperate card component, move device mapping to another function? + add actual hardware data
 const Card = ({ children, className = "" }) => (
   <div className={`bg-white rounded-[32px] p-6 shadow-[0_2px_20px_-4px_rgba(0,0,0,0.05)] border border-slate-100 ${className}`}>
     {children}
